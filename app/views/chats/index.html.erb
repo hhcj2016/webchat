@@ -1,0 +1,28 @@
+<div class="row">
+
+<%= render 'common/sidebar' %>
+
+  <div class="col-md-9">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chats.each do |chat| %>
+        <tr>
+          <% if chat.sender_id == current_user.id || chat.recipient_id == current_user.id %>
+          <% if chat.sender_id == current_user.id %>
+          <% recipient = User.find(chat.recipient_id) %>
+          <% else %>
+          <% recipient = User.find(chat.sender_id) %>
+          <% end %>
+          <td><%= link_to recipient.name, chat_messages_path(chat)%></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

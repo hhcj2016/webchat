@@ -2,6 +2,16 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-   root 'welcome#index'
+
+   resources :contact_relationships
+   resources :users, only: [:index]
+
+
+   resources :chats, only: [:index, :create] do
+     resources :messages
+   end
+
+   root 'contact_relationships#index'
+   #root 'welcome#index'
 
 end

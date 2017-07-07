@@ -1,0 +1,31 @@
+<div class="row">
+
+
+<%= render 'common/sidebar' %>
+
+
+  <div class="col-md-9">
+    <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Unread</th>
+        <th>Chat</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.email %></td>
+        <td><%= contact.unread(current_user, contact) %></td>
+        <td><%= link_to 'Chat', chats_path(:sender_id => current_user.id, :recipient_id => contact.id), method: :post , class: 'btn btn-primary' %></td>
+        <td><%= link_to 'delete', contact_relationship_path(contact), method: :delete, class: 'btn btn-danger', data: { confirm: "Delete this contact?"}%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>

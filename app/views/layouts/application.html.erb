@@ -4,18 +4,32 @@
     <title>Webchat</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
+
+  </head>
   <body>
 
-    <div class="container-fluid">
-        <%= render "common/navbar" %>
-        <%= render "common/flashes" %>
-        <%= yield %>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to 'WebChat', root_path, class: 'navbar-brand' %>
+        </div>
+        <ul class="nav navbar-nav">
+          <% if user_signed_in? %>
+          <li><a>Hi, <%= current_user.name %>!!</a></li>
+          <li><%= link_to 'Contacts', contact_relationships_path %></li>
+          <li><%= link_to 'Users', users_path %></li>
+          <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+          <li><%= link_to 'Log In', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
     </div>
-
-        <% render "common/footer" %>
   </body>
 </html>
